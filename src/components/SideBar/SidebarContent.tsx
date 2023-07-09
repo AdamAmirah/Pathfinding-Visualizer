@@ -61,7 +61,10 @@ export default function SidebarContent(props: Props) {
         <Link onClick={() => onClickInfo()} style={{ textDecoration: "none" }}>
           <NavItem icon={"info.svg"}>What is This ? </NavItem>
         </Link>
-        <Link onClick={() => onClickControl} style={{ textDecoration: "none" }}>
+        <Link
+          onClick={() => onClickControl()}
+          style={{ textDecoration: "none" }}
+        >
           <NavItem icon={"settings.svg"}>Control Panel</NavItem>
         </Link>
         <Link href="#" style={{ textDecoration: "none" }}>

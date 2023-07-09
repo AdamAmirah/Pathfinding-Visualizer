@@ -16,6 +16,8 @@ export default function SideBar({ onClickControl, onClickInfo }: Props) {
         }}
         onClickControl={onClickControl}
         onClickInfo={onClickInfo}
+        w={""}
+        borderRight={""}
       />
 
       <MobileSideBar />

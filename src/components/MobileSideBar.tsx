@@ -31,7 +31,20 @@ export default function MobileSideBar({}: Props) {
       >
         <DrawerOverlay />
         <DrawerContent>
-          <SidebarContent w="full" borderRight="none" />
+          <SidebarContent
+            w="full"
+            borderRight="none"
+            onClickControl={function (): void {
+              throw new Error("Function not implemented.");
+            }}
+            onClickInfo={function (): void {
+              throw new Error("Function not implemented.");
+            }}
+            display={{
+              base: "",
+              md: "",
+            }}
+          />
         </DrawerContent>
       </Drawer>
       <Flex
