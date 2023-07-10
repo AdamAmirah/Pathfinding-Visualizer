@@ -2,6 +2,7 @@ import * as React from "react";
 import SideBar from "./components/SideBar/SideBar";
 import { Box } from "@chakra-ui/react";
 import { useState } from "react";
+import Main from "./components/Main/Main";
 
 export const App: React.FC = () => {
   const [isInfoOpen, setIsInfoOpen] = useState<boolean>(true);
@@ -32,7 +33,7 @@ export const App: React.FC = () => {
             what is this
           </Box>
         ) : (
-          <Box>control</Box>
+          <Main />
         )}
       </Box>
     </Box>
