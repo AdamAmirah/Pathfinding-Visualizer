@@ -9,7 +9,7 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 import { FiMenu } from "react-icons/fi";
-import SidebarContent from "./SideBar/SidebarContent";
+import SidebarContent from "./SidebarContent";
 
 type Props = {};
 
