@@ -14,25 +14,29 @@ const ControlPanel: React.FunctionComponent<IControlPanelProps> = (props) => {
   return (
     <Flex
       direction="column"
-      align="center"
+      align="flex-start" // Align items to the left
       justify="center"
-      p={10}
-      border="1px solid red"
+      w="25%"
+      // border="1px solid red"
     >
       <LinkBox
         display="flex"
         flexDirection="column"
         borderRadius="3xl"
         bg="#15171a"
-        border="1px solid red"
+        // border="1px solid red"
+        w="100%"
+        alignItems="self-start"
+        pl={6}
+        py={4}
       >
-        <Flex border="1px solid red" px={24} py={4} justifyContent="flex-start">
-          <Image src="play.svg" boxSize={10} mr={10} />
-          <Heading size="md" my="2">
+        <Flex align="center">
+          <Image src="play.svg" boxSize={10} mr={5} />
+          <Heading size="md">
             <LinkOverlay href="#">Visualize</LinkOverlay>
           </Heading>
         </Flex>
-        <Text textAlign="left" color="whiteAlpha.400" mt={4}>
+        <Text color="whiteAlpha.400" mt={2}>
           State of the visualization
         </Text>
       </LinkBox>
