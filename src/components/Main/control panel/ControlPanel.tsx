@@ -8,9 +8,28 @@ import {
 } from "@chakra-ui/react";
 import * as React from "react";
 
-interface IControlPanelProps {}
+const numRows = 35;
+const numCols = 43;
 
-const ControlPanel: React.FunctionComponent<IControlPanelProps> = (props) => {
+type ArrayElement = number;
+type TwoDimensionalArray = Array<Array<ArrayElement>>;
+
+interface IControlPanelProps {
+  searching: boolean;
+  setSearching: React.Dispatch<React.SetStateAction<boolean>>;
+  grid: TwoDimensionalArray;
+  setGrid: React.Dispatch<React.SetStateAction<TwoDimensionalArray>>;
+}
+
+const ControlPanel: React.FunctionComponent<IControlPanelProps> = ({
+  searching,
+  setSearching,
+  setGrid,
+  grid,
+}) => {
+  const twoDimensionalArray: TwoDimensionalArray = Array(numRows)
+    .fill(0)
+    .map(() => Array(numCols).fill(0));
   return (
     <Flex
       direction="column"
@@ -32,16 +51,13 @@ const ControlPanel: React.FunctionComponent<IControlPanelProps> = (props) => {
         alignItems="center"
         px={8}
         py={4}
+        onClick={() => setSearching(true)}
+        cursor="pointer"
       >
         <Image src="play.svg" boxSize={8} />
         <Flex ml={6} direction="column">
           <Heading size="md">
-            <LinkOverlay
-              color="#F2F2F2"
-              fontSize="lg"
-              fontFamily="prodsans"
-              href="#"
-            >
+            <LinkOverlay color="#F2F2F2" fontSize="lg" fontFamily="prodsans">
               Visualize!
             </LinkOverlay>
           </Heading>
@@ -61,16 +77,15 @@ const ControlPanel: React.FunctionComponent<IControlPanelProps> = (props) => {
         py={3}
         my={2}
         ml={4}
+        cursor="pointer"
+        onClick={() => {
+          setGrid(twoDimensionalArray);
+        }}
       >
         <Image src="clear_all-24px.svg" boxSize={12} />
         <Flex ml={6} direction="column">
           <Heading size="md">
-            <LinkOverlay
-              color="#F2F2F2"
-              fontSize="lg"
-              fontFamily="prodsans"
-              href="#"
-            >
+            <LinkOverlay color="#F2F2F2" fontSize="lg" fontFamily="prodsans">
               Clear Board
             </LinkOverlay>
           </Heading>
@@ -90,16 +105,23 @@ const ControlPanel: React.FunctionComponent<IControlPanelProps> = (props) => {
         py={3}
         my={2}
         ml={4}
+        cursor="pointer"
+        onClick={() => {
+          const newGrid = [...grid];
+          newGrid.forEach((row, rowIndex) => {
+            row.forEach((cell, colIndex) => {
+              if (cell === 5 || cell === 4) {
+                newGrid[rowIndex][colIndex] = 0;
+              }
+            });
+          });
+          setGrid(newGrid);
+        }}
       >
         <Image src="Squiggly-Road-Sign-Arrow.svg" boxSize={12} />
         <Flex ml={6} direction="column">
           <Heading size="md">
-            <LinkOverlay
-              color="#F2F2F2"
-              fontSize="lg"
-              fontFamily="prodsans"
-              href="#"
-            >
+            <LinkOverlay color="#F2F2F2" fontSize="lg" fontFamily="prodsans">
               Clear Path
             </LinkOverlay>
           </Heading>

@@ -1,26 +1,31 @@
 import React, { useState } from "react";
 import { Box } from "@chakra-ui/react";
+import { bfs } from "../../algorithms/bfs";
 
-interface IGridProps {}
+interface IGridProps {
+  searching: boolean;
+  setSearching: React.Dispatch<React.SetStateAction<boolean>>;
+  grid: TwoDimensionalArray;
+  setGrid: React.Dispatch<React.SetStateAction<TwoDimensionalArray>>;
+}
 
 const numRows = 35;
 const numCols = 43;
 type ArrayElement = number;
 type TwoDimensionalArray = Array<Array<ArrayElement>>;
 
-const Grid: React.FC<IGridProps> = (props) => {
+const Grid: React.FC<IGridProps> = ({
+  searching,
+  setSearching,
+  setGrid,
+  grid,
+}) => {
   const [startPoint, setStartPoint] = useState<[number, number]>([15, 5]);
-  const [endPoint, setEndPoint] = useState<[number, number]>([15, 35]);
+  const [endPoint, setEndPoint] = useState<[number, number]>([15, 9]);
   const [allowedToDraw, setAllowedToDraw] = useState<boolean>(true);
   const [startButtonClicked, setStartButtonClicked] = useState<boolean>(false);
   const [endButtonClicked, setEndButtonClicked] = useState<boolean>(false);
   const [mouseIsPressed, setMouseIsPressed] = React.useState(false);
-
-  const twoDimensionalArray: TwoDimensionalArray = Array(numRows)
-    .fill(0)
-    .map(() => Array(numCols).fill(0));
-  const [grid, setGrid] =
-    React.useState<TwoDimensionalArray>(twoDimensionalArray);
 
   const handleCellClick = (rowIndex: number, colIndex: number) => {
     let newGrid = JSON.parse(JSON.stringify(grid));
@@ -60,6 +65,67 @@ const Grid: React.FC<IGridProps> = (props) => {
     if (!allowedToDraw) return;
     setMouseIsPressed(false);
   };
+
+  React.useEffect(() => {
+    if (searching) {
+      const result = bfs(grid, startPoint, endPoint);
+      const path = result?.path;
+      const steps = result?.steps;
+
+      if (path) {
+        animateSearch(steps!, path);
+      } else {
+        console.log("No path found");
+      }
+      setSearching(false);
+    }
+  }, [searching, grid, startPoint, endPoint]);
+
+  const animateSearch = (
+    steps: Array<[number, number]>,
+    path: Array<[number, number]>
+  ) => {
+    const animationSpeed = 1;
+    let delay = 0;
+
+    for (let i = 0; i < steps.length; i++) {
+      const [row, col] = steps[i];
+      if (
+        (row === startPoint[0] && col === startPoint[1]) ||
+        (row === endPoint[0] && col === endPoint[1])
+      )
+        continue;
+
+      setTimeout(() => {
+        setGrid((prevGrid) => {
+          const newGrid = JSON.parse(JSON.stringify(prevGrid));
+
+          newGrid[row][col] = 4; // Mark the cell as visited during search
+          return newGrid;
+        });
+      }, delay);
+
+      delay += animationSpeed;
+    }
+
+    setTimeout(() => {
+      setGrid((prevGrid) => {
+        const newGrid = JSON.parse(JSON.stringify(prevGrid));
+        for (let i = 0; i < path.length; i++) {
+          const [row, col] = path[i];
+          if (
+            (row === startPoint[0] && col === startPoint[1]) ||
+            (row === endPoint[0] && col === endPoint[1])
+          )
+            continue;
+
+          newGrid[row][col] = 5; // Mark the cell as part of the path
+        }
+        return newGrid;
+      });
+    }, delay);
+  };
+
   return (
     <Box
       display="grid"
