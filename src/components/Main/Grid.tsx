@@ -1,16 +1,23 @@
 import React, { useState } from "react";
 import { Box } from "@chakra-ui/react";
 import { bfs } from "../../algorithms/bfs";
+import { motion, AnimateSharedLayout } from "framer-motion";
 
 interface IGridProps {
   searching: boolean;
   setSearching: React.Dispatch<React.SetStateAction<boolean>>;
   grid: TwoDimensionalArray;
   setGrid: React.Dispatch<React.SetStateAction<TwoDimensionalArray>>;
+  startPoint: [number, number];
+  endPoint: [number, number];
+  setStartPoint: React.Dispatch<React.SetStateAction<[number, number]>>;
+  setEndPoint: React.Dispatch<React.SetStateAction<[number, number]>>;
 }
 
 const numRows = 35;
 const numCols = 43;
+const GRID_SIZE = 1505;
+
 type ArrayElement = number;
 type TwoDimensionalArray = Array<Array<ArrayElement>>;
 
@@ -19,9 +26,11 @@ const Grid: React.FC<IGridProps> = ({
   setSearching,
   setGrid,
   grid,
+  startPoint,
+  endPoint,
+  setEndPoint,
+  setStartPoint,
 }) => {
-  const [startPoint, setStartPoint] = useState<[number, number]>([15, 5]);
-  const [endPoint, setEndPoint] = useState<[number, number]>([15, 9]);
   const [allowedToDraw, setAllowedToDraw] = useState<boolean>(true);
   const [startButtonClicked, setStartButtonClicked] = useState<boolean>(false);
   const [endButtonClicked, setEndButtonClicked] = useState<boolean>(false);
@@ -126,8 +135,44 @@ const Grid: React.FC<IGridProps> = ({
     }, delay);
   };
 
+  const [activeCell, setActiveCell] = useState({ x: 0, y: 0 });
+  const [isDragging, setIsDragging] = useState(false);
+
+  const dragStart = () => {
+    setIsDragging(true);
+  };
+  const dragEnd = (_: any, info: any) => {
+    setIsDragging(false);
+    const cellIndex = getActiveCellIndex(info.point);
+    if (!cellIndex) return;
+
+    console.log(cellIndex);
+    if (
+      cellIndex.x > GRID_SIZE - 1 ||
+      cellIndex.y > GRID_SIZE - 1 ||
+      cellIndex.x < 0 ||
+      cellIndex.y < 0
+    )
+      return;
+    setActiveCell(cellIndex);
+  };
+
+  const getActiveCellIndex = (point: any) => {
+    const cellSize = 25;
+    const gridRect = document.querySelector(".grid")?.getBoundingClientRect();
+    if (!gridRect) return;
+    const relativeX = point.x - gridRect.left;
+    const relativeY = point.y - gridRect.top;
+
+    const x = Math.floor(relativeX / cellSize);
+    const y = Math.floor(relativeY / cellSize);
+
+    return { x, y };
+  };
+
   return (
     <Box
+      className="grid"
       display="grid"
       gridTemplateColumns={`repeat(${numCols}, 25px)`}
       width="fit-content"
@@ -135,43 +180,123 @@ const Grid: React.FC<IGridProps> = ({
     >
       {grid.map((rows, rowIndex) =>
         rows.map((col, colIndex) => (
-          <Box
-            key={`${rowIndex}-${colIndex}`}
-            width={25}
-            height={25}
-            borderRadius={grid[rowIndex][colIndex] >= 4 ? "50%" : "0%"}
-            backgroundColor={
-              grid[rowIndex][colIndex] === 0
-                ? "#202125" // Color for empty cells
-                : grid[rowIndex][colIndex] === 1
-                ? "#515256" // Color for obstacles
-                : grid[rowIndex][colIndex] === 2
-                ? "green" // Color for start point
-                : grid[rowIndex][colIndex] === 3
-                ? "red" // Color for end point
-                : grid[rowIndex][colIndex] === 4
-                ? "lightblue" // Color for visited cells during search
-                : grid[rowIndex][colIndex] === 5
-                ? "yellow" // Color for cells in the path
-                : undefined
-            }
-            border="1px solid #595959"
-            onMouseDown={() => handleCellMouseDown(rowIndex, colIndex)}
-            onMouseEnter={() => handleCellMouseEnter(rowIndex, colIndex)}
-            onMouseUp={handleCellMouseUp}
-            onClick={() => handleCellClick(rowIndex, colIndex)}
-            backgroundImage={
-              rowIndex === startPoint[0] && colIndex === startPoint[1]
-                ? "chevron-right.svg"
-                : rowIndex === endPoint[0] && colIndex === endPoint[1]
-                ? "actualTarget.svg"
-                : ""
-            }
-            backgroundRepeat="no-repeat"
-            backgroundPosition="center"
-            backgroundSize="100%"
-          ></Box>
+          <Cell
+            key={`cell-${colIndex}-${rowIndex}`}
+            colIndex={colIndex}
+            rowIndex={rowIndex}
+            activeCell={activeCell}
+            onDragStart={dragStart}
+            onDragEnd={dragEnd}
+            isDragging={isDragging}
+          />
+          // <Box
+          //   key={`${rowIndex}-${colIndex}`}
+          //   width={25}
+          //   height={25}
+          //   borderRadius={grid[rowIndex][colIndex] >= 4 ? "50%" : "0%"}
+          //   backgroundColor={
+          //     grid[rowIndex][colIndex] === 0
+          //       ? "#202125" // Color for empty cells
+          //       : grid[rowIndex][colIndex] === 1
+          //       ? "#515256" // Color for obstacles
+          //       : grid[rowIndex][colIndex] === 2
+          //       ? "green" // Color for start point
+          //       : grid[rowIndex][colIndex] === 3
+          //       ? "red" // Color for end point
+          //       : grid[rowIndex][colIndex] === 4
+          //       ? "lightblue" // Color for visited cells during search
+          //       : grid[rowIndex][colIndex] === 5
+          //       ? "yellow" // Color for cells in the path
+          //       : undefined
+          //   }
+          //   border="1px solid #595959"
+          //   onMouseDown={() => handleCellMouseDown(rowIndex, colIndex)}
+          //   onMouseEnter={() => handleCellMouseEnter(rowIndex, colIndex)}
+          //   onMouseUp={handleCellMouseUp}
+          //   onClick={() => handleCellClick(rowIndex, colIndex)}
+          //   backgroundImage={
+          //     rowIndex === startPoint[0] && colIndex === startPoint[1]
+          //       ? "chevron-right.svg"
+          //       : rowIndex === endPoint[0] && colIndex === endPoint[1]
+          //       ? "actualTarget.svg"
+          //       : ""
+          //   }
+          //   backgroundRepeat="no-repeat"
+          //   backgroundPosition="center"
+          //   backgroundSize="100%"
+          // ></Box>
         ))
+      )}
+    </Box>
+  );
+};
+
+const cellVariant = {
+  dragging: {
+    border: "2px dashed #008E95",
+  },
+  inactive: {
+    border: "2px solid #fff",
+  },
+};
+
+const draggableVariant = {
+  dragging: {
+    scale: 0.7,
+  },
+  inactive: {
+    scale: 1,
+  },
+};
+
+const Cell = ({
+  colIndex,
+  rowIndex,
+  activeCell,
+  onDragStart,
+  onDragEnd,
+  isDragging,
+  grid,
+}: any) => {
+  const isOccupied = activeCell.x === colIndex && activeCell.y === rowIndex;
+
+  return (
+    <Box
+      className="cell center"
+      id={`${rowIndex}-${colIndex}`}
+      width={25}
+      height={25}
+      backgroundColor={
+        grid[rowIndex][colIndex] === 0
+          ? "#202125" // Color for empty cells
+          : grid[rowIndex][colIndex] === 1
+          ? "#515256" // Color for obstacles
+          : grid[rowIndex][colIndex] === 2
+          ? "green" // Color for start point
+          : grid[rowIndex][colIndex] === 3
+          ? "red" // Color for end point
+          : grid[rowIndex][colIndex] === 4
+          ? "lightblue" // Color for visited cells during search
+          : grid[rowIndex][colIndex] === 5
+          ? "yellow" // Color for cells in the path
+          : undefined
+      }
+      backgroundImage="chevron-right.svg"
+      backgroundRepeat="no-repeat"
+      backgroundPosition="center"
+      backgroundSize="100%"
+    >
+      {isOccupied && (
+        <motion.div
+          className="draggable center"
+          variants={draggableVariant}
+          animate={isDragging ? "dragging" : "inactive"}
+          dragElastic={1}
+          onDragStart={onDragStart}
+          onDragEnd={onDragEnd}
+          layoutId="drag"
+          drag
+        ></motion.div>
       )}
     </Box>
   );

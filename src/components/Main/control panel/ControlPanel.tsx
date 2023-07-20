@@ -19,6 +19,10 @@ interface IControlPanelProps {
   setSearching: React.Dispatch<React.SetStateAction<boolean>>;
   grid: TwoDimensionalArray;
   setGrid: React.Dispatch<React.SetStateAction<TwoDimensionalArray>>;
+  startPoint: [number, number];
+  endPoint: [number, number];
+  setStartPoint: React.Dispatch<React.SetStateAction<[number, number]>>;
+  setEndPoint: React.Dispatch<React.SetStateAction<[number, number]>>;
 }
 
 const ControlPanel: React.FunctionComponent<IControlPanelProps> = ({
@@ -26,6 +30,10 @@ const ControlPanel: React.FunctionComponent<IControlPanelProps> = ({
   setSearching,
   setGrid,
   grid,
+  startPoint,
+  endPoint,
+  setEndPoint,
+  setStartPoint,
 }) => {
   const twoDimensionalArray: TwoDimensionalArray = Array(numRows)
     .fill(0)
@@ -80,6 +88,8 @@ const ControlPanel: React.FunctionComponent<IControlPanelProps> = ({
         cursor="pointer"
         onClick={() => {
           setGrid(twoDimensionalArray);
+          setEndPoint([15, 9]);
+          setStartPoint([15, 5]);
         }}
       >
         <Image src="clear_all-24px.svg" boxSize={12} />
@@ -107,15 +117,7 @@ const ControlPanel: React.FunctionComponent<IControlPanelProps> = ({
         ml={4}
         cursor="pointer"
         onClick={() => {
-          const newGrid = [...grid];
-          newGrid.forEach((row, rowIndex) => {
-            row.forEach((cell, colIndex) => {
-              if (cell === 5 || cell === 4) {
-                newGrid[rowIndex][colIndex] = 0;
-              }
-            });
-          });
-          setGrid(newGrid);
+          setGrid(twoDimensionalArray);
         }}
       >
         <Image src="Squiggly-Road-Sign-Arrow.svg" boxSize={12} />
