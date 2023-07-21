@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Box } from "@chakra-ui/react";
 import { bfs } from "../../algorithms/bfs";
 import { motion, AnimateSharedLayout } from "framer-motion";
-
+import "./cell.css";
 interface IGridProps {
   searching: boolean;
   setSearching: React.Dispatch<React.SetStateAction<boolean>>;
@@ -154,12 +154,15 @@ const Grid: React.FC<IGridProps> = ({
       cellIndex.y < 0
     )
       return;
+    console.log(cellIndex);
+
     setActiveCell(cellIndex);
   };
 
   const getActiveCellIndex = (point: any) => {
     const cellSize = 25;
     const gridRect = document.querySelector(".grid")?.getBoundingClientRect();
+    console.log(gridRect);
     if (!gridRect) return;
     const relativeX = point.x - gridRect.left;
     const relativeY = point.y - gridRect.top;
@@ -188,6 +191,9 @@ const Grid: React.FC<IGridProps> = ({
             onDragStart={dragStart}
             onDragEnd={dragEnd}
             isDragging={isDragging}
+            grid={grid}
+            startPoint={startPoint}
+            endPoint={endPoint}
           />
           // <Box
           //   key={`${rowIndex}-${colIndex}`}
@@ -257,6 +263,8 @@ const Cell = ({
   onDragEnd,
   isDragging,
   grid,
+  startPoint,
+  endPoint,
 }: any) => {
   const isOccupied = activeCell.x === colIndex && activeCell.y === rowIndex;
 
@@ -266,6 +274,7 @@ const Cell = ({
       id={`${rowIndex}-${colIndex}`}
       width={25}
       height={25}
+      border="1px solid #595959"
       backgroundColor={
         grid[rowIndex][colIndex] === 0
           ? "#202125" // Color for empty cells
@@ -281,10 +290,6 @@ const Cell = ({
           ? "yellow" // Color for cells in the path
           : undefined
       }
-      backgroundImage="chevron-right.svg"
-      backgroundRepeat="no-repeat"
-      backgroundPosition="center"
-      backgroundSize="100%"
     >
       {isOccupied && (
         <motion.div
@@ -303,3 +308,175 @@ const Cell = ({
 };
 
 export default Grid;
+
+// import React, { useState } from "react";
+// import { motion, AnimateSharedLayout } from "framer-motion";
+// import "./styles.css";
+
+// const GRID_SIZE = 5;
+
+// export default function DragDrop() {
+//   const [activeCell, setActiveCell] = useState({ x: 0, y: 0 });
+//   const [isDragging, setIsDragging] = useState(false);
+
+//   const dragStart = () => {
+//     setIsDragging(true);
+//   };
+
+//   const dragEnd = (_, info) => {
+//     setIsDragging(false);
+//     const cellIndex = getActiveCellIndex(info.point);
+//     console.log(cellIndex);
+//     if (
+//       cellIndex.x > GRID_SIZE - 1 ||
+//       cellIndex.y > GRID_SIZE - 1 ||
+//       cellIndex.x < 0 ||
+//       cellIndex.y < 0
+//     )
+//       return;
+//     setActiveCell(cellIndex);
+//   };
+
+//   const getActiveCellIndex = (point) => {
+//     const cellSize = 100; // Assuming each cell is 100x100
+//     const gridRect = document.querySelector(".grid").getBoundingClientRect();
+
+//     const relativeX = point.x - gridRect.left;
+//     const relativeY = point.y - gridRect.top;
+
+//     const x = Math.floor(relativeX / cellSize);
+//     const y = Math.floor(relativeY / cellSize);
+
+//     return { x, y };
+//   };
+
+//   return (
+//     <div className="container">
+//       <h1>{`Draggable Element - Current cell (${activeCell.x + 1}, ${
+//         activeCell.y + 1
+//       })`}</h1>
+//       <div className="grid">
+//         {Array.from({ length: GRID_SIZE }).map((_, y) =>
+//           Array.from({ length: GRID_SIZE }).map((_, x) => (
+//             <Cell
+//               key={`cell-${x}-${y}`}
+//               x={x}
+//               y={y}
+//               activeCell={activeCell}
+//               onDragStart={dragStart}
+//               onDragEnd={dragEnd}
+//               isDragging={isDragging}
+//             />
+//           ))
+//         )}
+//       </div>
+//     </div>
+//   );
+// }
+
+// const cellVariant = {
+//   dragging: {
+//     border: "2px dashed #008E95",
+//   },
+//   inactive: {
+//     border: "2px solid #fff",
+//   },
+// };
+
+// const draggableVariant = {
+//   dragging: {
+//     scale: 0.7, // Slightly increased to make it feel more responsive
+//   },
+//   inactive: {
+//     scale: 1,
+//   },
+// };
+
+// const Cell = ({ x, y, activeCell, onDragStart, onDragEnd, isDragging }) => {
+//   const isOccupied = activeCell.x === x && activeCell.y === y;
+
+//   return (
+//     <motion.div
+//       className="cell center"
+//       id={`${x}-${y}`}
+//       variants={cellVariant}
+//       animate={isDragging ? "dragging" : "inactive"}
+//     >
+//       {isOccupied && (
+//         <motion.div
+//           className="draggable center"
+//           variants={draggableVariant}
+//           animate={isDragging ? "dragging" : "inactive"}
+//           dragElastic={1}
+//           onDragStart={onDragStart}
+//           onDragEnd={onDragEnd}
+//           layoutId="drag"
+//           drag
+//         ></motion.div>
+//       )}
+//     </motion.div>
+//   );
+// };
+
+// body {
+//   font-family: Arial, sans-serif;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   height: 100vh;
+//   margin: 0;
+//   background-color: #f0f0f0;
+// }
+
+// .container {
+//   text-align: center;
+//   padding: 20px;
+//   background-color: #fff;
+//   border-radius: 8px;
+//   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+// }
+
+// .grid {
+//   display: grid;
+//   grid-template-columns: repeat(5, 100px);
+//   grid-template-rows: repeat(5, 100px);
+//   gap: 8px;
+//   margin-top: 20px;
+// }
+
+// .cell {
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   width: 100px;
+//   height: 100px;
+//   border: 2px solid #fff;
+//   border-radius: 4px;
+//   background-color: #d8d8d8;
+//   cursor: pointer;
+// }
+
+// .cell .draggable {
+//   width: 60px;
+//   height: 60px;
+//   border-radius: 50%;
+//   color: #fff;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   cursor: grab;
+//   background-image: url("/chevron-right.svg");
+//   background-repeat: no-repeat;
+//   background-position: center;
+//   background-size: 20%;
+// }
+
+// .cell .draggable:active {
+//   cursor: grabbing;
+// }
+
+// h1 {
+//   font-size: 24px;
+//   margin-bottom: 20px;
+//   color: #008e95;
+// }
