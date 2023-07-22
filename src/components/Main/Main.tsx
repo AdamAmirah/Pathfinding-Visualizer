@@ -1,7 +1,7 @@
 import * as React from "react";
 import ControlPanel from "./control panel/ControlPanel";
 import { Flex } from "@chakra-ui/react";
-import Grid from "./Grid";
+import Grid from "./Grid/Grid";
 import { useState } from "react";
 
 const numRows = 35;
@@ -12,8 +12,8 @@ type TwoDimensionalArray = Array<Array<ArrayElement>>;
 interface IMainProps {}
 
 const Main: React.FunctionComponent<IMainProps> = (props) => {
-  const [startPoint, setStartPoint] = useState<[number, number]>([15, 5]);
-  const [endPoint, setEndPoint] = useState<[number, number]>([15, 9]);
+  const [startPoint, setStartPoint] = useState<[number, number]>([15, 10]);
+  const [endPoint, setEndPoint] = useState<[number, number]>([15, 30]);
   const [searching, setSearching] = React.useState<boolean>(false); // Track if the search is in progress
   const twoDimensionalArray: TwoDimensionalArray = Array(numRows)
     .fill(0)

@@ -88,8 +88,8 @@ const ControlPanel: React.FunctionComponent<IControlPanelProps> = ({
         cursor="pointer"
         onClick={() => {
           setGrid(twoDimensionalArray);
-          setEndPoint([15, 9]);
-          setStartPoint([15, 5]);
+          setEndPoint([15, 10]);
+          setStartPoint([15, 30]);
         }}
       >
         <Image src="clear_all-24px.svg" boxSize={12} />

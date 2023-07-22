@@ -1,0 +1,27 @@
+
+.cell .draggable {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: grab;
+  background-image: url("../../../../public/chevron-right.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 70%;
+}
+
+.cell .start {
+    background-image: url("../../../../public/chevron-right.svg");
+
+}
+
+.cell .end {
+    background-image: url("../../../../public/actualTarget.svg");
+}
+.cell .draggable:active {
+  cursor: grabbing;
+}
