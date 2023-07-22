@@ -70,7 +70,7 @@ const Cell: React.FC<ICellProps> = ({
       id={`${rowIndex}-${colIndex}`}
       width={25}
       height={25}
-      border="1px solid #595959"
+      border="1px solid #ffffff1b"
       onMouseDown={handleCellMouseDownWrapper}
       onMouseEnter={handleCellMouseEnterWrapper}
       onMouseUp={handleCellMouseUp}
@@ -81,9 +81,9 @@ const Cell: React.FC<ICellProps> = ({
           : grid[rowIndex][colIndex] === 1
           ? "#515256" // Color for obstacles
           : grid[rowIndex][colIndex] === 4
-          ? "lightblue" // Color for visited cells during search
+          ? "#0090e3" // Color for visited cells during search
           : grid[rowIndex][colIndex] === 5
-          ? "yellow" // Color for cells in the path
+          ? "#f9c80e" // Color for cells in the path
           : undefined
       }
     >

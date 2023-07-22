@@ -15,6 +15,7 @@ const Main: React.FunctionComponent<IMainProps> = (props) => {
   const [startPoint, setStartPoint] = useState<[number, number]>([15, 10]);
   const [endPoint, setEndPoint] = useState<[number, number]>([15, 30]);
   const [searching, setSearching] = React.useState<boolean>(false); // Track if the search is in progress
+  const [firstSearch, setFirstSearch] = useState(false);
   const twoDimensionalArray: TwoDimensionalArray = Array(numRows)
     .fill(0)
     .map(() => Array(numCols).fill(0));
@@ -33,6 +34,8 @@ const Main: React.FunctionComponent<IMainProps> = (props) => {
         setStartPoint={setStartPoint}
         endPoint={endPoint}
         setEndPoint={setEndPoint}
+        firstSearch={firstSearch}
+        setFirstSearch={setFirstSearch}
       />
       <Grid
         grid={grid}
@@ -43,6 +46,8 @@ const Main: React.FunctionComponent<IMainProps> = (props) => {
         setStartPoint={setStartPoint}
         endPoint={endPoint}
         setEndPoint={setEndPoint}
+        firstSearch={firstSearch}
+        setFirstSearch={setFirstSearch}
       />
     </Flex>
   );

@@ -15,10 +15,6 @@ export const bfs = (
     [0, 1], // Right
     [1, 0], // Down
     [0, -1], // Left
-    [-1, -1], // Diagonal: Up-Left
-    [-1, 1], // Diagonal: Up-Right
-    [1, 1], // Diagonal: Down-Right
-    [1, -1], // Diagonal: Down-Left
   ];
 
   const queue: ArrayPair = [start];

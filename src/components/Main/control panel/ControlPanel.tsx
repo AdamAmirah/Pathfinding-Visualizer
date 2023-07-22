@@ -23,6 +23,8 @@ interface IControlPanelProps {
   endPoint: [number, number];
   setStartPoint: React.Dispatch<React.SetStateAction<[number, number]>>;
   setEndPoint: React.Dispatch<React.SetStateAction<[number, number]>>;
+  firstSearch: boolean;
+  setFirstSearch: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const ControlPanel: React.FunctionComponent<IControlPanelProps> = ({
@@ -34,6 +36,7 @@ const ControlPanel: React.FunctionComponent<IControlPanelProps> = ({
   endPoint,
   setEndPoint,
   setStartPoint,
+  setFirstSearch,
 }) => {
   const twoDimensionalArray: TwoDimensionalArray = Array(numRows)
     .fill(0)
@@ -59,7 +62,10 @@ const ControlPanel: React.FunctionComponent<IControlPanelProps> = ({
         alignItems="center"
         px={8}
         py={4}
-        onClick={() => setSearching(true)}
+        onClick={() => {
+          setSearching(true);
+          setFirstSearch(true);
+        }}
         cursor="pointer"
       >
         <Image src="play.svg" boxSize={8} />
@@ -88,8 +94,9 @@ const ControlPanel: React.FunctionComponent<IControlPanelProps> = ({
         cursor="pointer"
         onClick={() => {
           setGrid(twoDimensionalArray);
-          setEndPoint([15, 10]);
-          setStartPoint([15, 30]);
+          setEndPoint([15, 30]);
+          setStartPoint([15, 10]);
+          setFirstSearch(false);
         }}
       >
         <Image src="clear_all-24px.svg" boxSize={12} />
@@ -118,6 +125,7 @@ const ControlPanel: React.FunctionComponent<IControlPanelProps> = ({
         cursor="pointer"
         onClick={() => {
           setGrid(twoDimensionalArray);
+          setFirstSearch(false);
         }}
       >
         <Image src="Squiggly-Road-Sign-Arrow.svg" boxSize={12} />

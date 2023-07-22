@@ -4,6 +4,7 @@ import { bfs } from "../../../algorithms/bfs";
 import { motion, AnimateSharedLayout } from "framer-motion";
 import "./cell.css";
 import Cell from "./Cell";
+import { forEachChild } from "typescript";
 interface IGridProps {
   searching: boolean;
   setSearching: React.Dispatch<React.SetStateAction<boolean>>;
@@ -13,6 +14,8 @@ interface IGridProps {
   endPoint: [number, number];
   setStartPoint: React.Dispatch<React.SetStateAction<[number, number]>>;
   setEndPoint: React.Dispatch<React.SetStateAction<[number, number]>>;
+  firstSearch: boolean;
+  setFirstSearch: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const numRows = 35;
@@ -30,7 +33,11 @@ const Grid: React.FC<IGridProps> = ({
   endPoint,
   setEndPoint,
   setStartPoint,
+  firstSearch,
 }) => {
+  const twoDimensionalArray: TwoDimensionalArray = Array(numRows)
+    .fill(0)
+    .map(() => Array(numCols).fill(0));
   React.useEffect(() => {
     if (searching) {
       console.log(startPoint);
@@ -51,8 +58,13 @@ const Grid: React.FC<IGridProps> = ({
     steps: Array<[number, number]>,
     path: Array<[number, number]>
   ) => {
-    const animationSpeed = 1;
+    const animationSpeed = 0;
     let delay = 0;
+    grid.forEach((rows, rowIndex) => {
+      rows.forEach((col, colIndex) => {
+        if (grid[rowIndex][colIndex] > 1) grid[rowIndex][colIndex] = 0;
+      });
+    });
 
     for (let i = 0; i < steps.length; i++) {
       const [row, col] = steps[i];
@@ -66,7 +78,7 @@ const Grid: React.FC<IGridProps> = ({
         setGrid((prevGrid) => {
           const newGrid = JSON.parse(JSON.stringify(prevGrid));
 
-          newGrid[row][col] = 4; // Mark the cell as visited during search
+          newGrid[row][col] = 4;
           return newGrid;
         });
       }, delay);
@@ -79,11 +91,6 @@ const Grid: React.FC<IGridProps> = ({
         const newGrid = JSON.parse(JSON.stringify(prevGrid));
         for (let i = 0; i < path.length; i++) {
           const [row, col] = path[i];
-          if (
-            (row === startPoint[0] && col === startPoint[1]) ||
-            (row === endPoint[0] && col === endPoint[1])
-          )
-            continue;
 
           newGrid[row][col] = 5; // Mark the cell as part of the path
         }
@@ -127,6 +134,8 @@ const Grid: React.FC<IGridProps> = ({
     } else {
       setEndPoint([cellIndex.y, cellIndex.x]);
     }
+
+    if (firstSearch) setSearching(true);
   };
 
   const getActiveCellIndex = (point: any) => {
@@ -144,8 +153,6 @@ const Grid: React.FC<IGridProps> = ({
     return { x, y };
   };
   const [allowedToDraw, setAllowedToDraw] = useState<boolean>(true);
-  const [startButtonClicked, setStartButtonClicked] = useState<boolean>(false);
-  const [endButtonClicked, setEndButtonClicked] = useState<boolean>(false);
   const [mouseIsPressed, setMouseIsPressed] = React.useState(false);
 
   const handleCellClick = (rowIndex: number, colIndex: number) => {
@@ -157,20 +164,20 @@ const Grid: React.FC<IGridProps> = ({
   };
 
   const handleCellMouseDown = (rowIndex: number, colIndex: number) => {
-    if (!allowedToDraw) return;
+    if (!allowedToDraw || isDraggingStart || isDraggingEnd) return;
     setMouseIsPressed(true);
     handleCellClick(rowIndex, colIndex);
   };
 
   const handleCellMouseEnter = (rowIndex: number, colIndex: number) => {
-    if (!allowedToDraw) return;
+    if (!allowedToDraw || isDraggingStart || isDraggingEnd) return;
     if (mouseIsPressed) {
       handleCellClick(rowIndex, colIndex);
     }
   };
 
   const handleCellMouseUp = () => {
-    if (!allowedToDraw) return;
+    if (!allowedToDraw || isDraggingStart || isDraggingEnd) return;
     setMouseIsPressed(false);
   };
 
