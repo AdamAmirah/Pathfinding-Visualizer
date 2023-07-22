@@ -4,7 +4,6 @@ import { bfs } from "../../../algorithms/bfs";
 import { motion, AnimateSharedLayout } from "framer-motion";
 import "./cell.css";
 import Cell from "./Cell";
-import { forEachChild } from "typescript";
 interface IGridProps {
   searching: boolean;
   setSearching: React.Dispatch<React.SetStateAction<boolean>>;
