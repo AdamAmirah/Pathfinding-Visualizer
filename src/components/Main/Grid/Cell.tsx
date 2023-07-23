@@ -80,8 +80,6 @@ const Cell: React.FC<ICellProps> = ({
           ? "#202125" // Color for empty cells
           : grid[rowIndex][colIndex] === 1
           ? "#515256" // Color for obstacles
-          : grid[rowIndex][colIndex] === 4
-          ? "#0090e3" // Color for visited cells during search
           : grid[rowIndex][colIndex] === 5
           ? "#f9c80e" // Color for cells in the path
           : undefined
@@ -112,6 +110,40 @@ const Cell: React.FC<ICellProps> = ({
           drag
           dragConstraints={dragConstraints}
         ></motion.div>
+      )}
+      {grid[rowIndex][colIndex] === 4 && (
+        <motion.div
+          initial={{
+            transform: "scale(0.3)",
+            backgroundColor: "rgba(0, 0, 66)",
+            borderRadius: "100%",
+            border: "2px solid rgb(44, 48, 53)",
+          }}
+          animate={{
+            transform: ["scale(0.3)", "scale(1)", "scale(1.2)", "scale(1)"],
+            backgroundColor: [
+              "rgba(0, 0, 66)",
+              "rgba(17, 104, 217)",
+              "rgba(0, 217, 159)",
+              "#009FFD",
+            ],
+            border: [
+              "2px solid rgb(44, 48, 53)",
+              "2px solid rgb(44, 48, 53)",
+              "2px solid rgb(44, 48, 53)",
+              "2px solid #0090e3",
+            ],
+            borderRadius: ["50%", "0%"],
+          }}
+          transition={{
+            duration: 1, // Total animation duration (in seconds)
+            ease: "easeInOut", // Easing function for the animation
+          }}
+          style={{
+            width: "100%",
+            height: "100%",
+          }}
+        />
       )}
     </Box>
   );

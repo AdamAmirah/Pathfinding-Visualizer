@@ -1,11 +1,18 @@
 import {
   Flex,
   Heading,
+  Icon,
   Image,
   LinkBox,
   LinkOverlay,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
   Text,
 } from "@chakra-ui/react";
+
+import { MdArrowDropDown } from "react-icons/md";
 import * as React from "react";
 
 const numRows = 35;
@@ -140,34 +147,143 @@ const ControlPanel: React.FunctionComponent<IControlPanelProps> = ({
           </Text>
         </Flex>
       </LinkBox>
-      <LinkBox
-        display="flex"
-        borderRadius="3xl"
-        bg="#15171a"
-        // border="1px solid red"
-        w="100%"
-        alignItems="center"
-        px={8}
-        py={4}
-        my={2}
-      >
-        <Image src="dashboard.svg" boxSize={10} />
-        <Flex ml={6} direction="column">
-          <Heading size="md">
-            <LinkOverlay
-              color="#F2F2F2"
-              fontSize="lg"
-              fontFamily="prodsans"
-              href="#"
-            >
-              Speed!
-            </LinkOverlay>
-          </Heading>
-          <Text color="#73767C" fontSize="sm" fontFamily="prodsans">
-            Change Visualizer Speed
-          </Text>
-        </Flex>
-      </LinkBox>
+
+      <Menu>
+        <MenuButton
+          as={Flex}
+          direction="row"
+          wrap="nowrap"
+          borderRadius="3xl"
+          bg="#15171a"
+          w="100%"
+          justifyContent="center" // Align items and icon to opposite ends
+          alignItems="center"
+          px={8}
+          py={4}
+          my={2}
+          cursor="pointer"
+        >
+          <Flex alignItems="center">
+            <Image src="dashboard.svg" boxSize={10} />
+            <Flex ml={6} direction="column">
+              <Heading
+                size="md"
+                color="#F2F2F2"
+                fontSize="lg"
+                fontFamily="prodsans"
+              >
+                Speed!
+                <Icon as={MdArrowDropDown} />
+              </Heading>
+              <Text color="#73767C" fontSize="sm" fontFamily="prodsans">
+                Change Visualizer Speed
+              </Text>
+            </Flex>
+          </Flex>
+        </MenuButton>
+
+        <MenuList bg="#25272a" border="0px" p={4} ml={2}>
+          <MenuItem bg="#25272a" _hover={{ color: "#b8afaf" }}>
+            Fast
+          </MenuItem>
+          <MenuItem bg="#25272a" _hover={{ color: "#b8afaf" }}>
+            Moderate
+          </MenuItem>
+          <MenuItem bg="#25272a" _hover={{ color: "#b8afaf" }}>
+            Slow
+          </MenuItem>
+        </MenuList>
+      </Menu>
+      <Heading my={4} fontSize="2.5vh" fontFamily="prodsans">
+        Configure Pathfinding
+      </Heading>
+
+      <Menu>
+        <MenuButton
+          as={Flex}
+          direction="row"
+          wrap="nowrap"
+          borderRadius="3xl"
+          bg="#15171a"
+          w="100%"
+          justifyContent="center" // Align items and icon to opposite ends
+          alignItems="center"
+          px={8}
+          py={4}
+          my={2}
+          cursor="pointer"
+        >
+          <Flex alignItems="center">
+            <Image src="coding.svg" boxSize={10} />
+            <Flex ml={6} direction="column">
+              <Heading
+                size="md"
+                color="#F2F2F2"
+                fontSize="lg"
+                fontFamily="prodsans"
+              >
+                Algorithms
+                <Icon as={MdArrowDropDown} />
+              </Heading>
+              <Text color="#73767C" fontSize="sm" fontFamily="prodsans">
+                Select an Algorithm to Visualize
+              </Text>
+            </Flex>
+          </Flex>
+        </MenuButton>
+
+        <MenuList bg="#25272a" border="0px" p={4} ml={2}>
+          <MenuItem bg="#25272a" _hover={{ color: "#b8afaf" }}>
+            Breadth-First Search
+          </MenuItem>
+          <MenuItem bg="#25272a" _hover={{ color: "#b8afaf" }}>
+            Depth-First Search
+          </MenuItem>
+        </MenuList>
+      </Menu>
+      <Menu>
+        <MenuButton
+          as={Flex}
+          direction="row"
+          wrap="nowrap"
+          borderRadius="3xl"
+          bg="#15171a"
+          w="100%"
+          justifyContent="center" // Align items and icon to opposite ends
+          alignItems="center"
+          px={8}
+          py={4}
+          my={2}
+          cursor="pointer"
+        >
+          <Flex alignItems="center">
+            <Image src="maze.svg" boxSize={10} />
+            <Flex ml={6} direction="column">
+              <Heading
+                size="md"
+                color="#F2F2F2"
+                fontSize="lg"
+                fontFamily="prodsans"
+              >
+                Generate
+                <Icon as={MdArrowDropDown} />
+              </Heading>
+              <Text color="#73767C" fontSize="sm" fontFamily="prodsans">
+                Generate Mazes and Patterns
+              </Text>
+            </Flex>
+          </Flex>
+        </MenuButton>
+
+        <MenuList bg="#25272a" border="0px" p={4} ml={2}>
+          <MenuItem bg="#25272a" _hover={{ color: "#b8afaf" }}>
+            Basic Random Maze
+          </MenuItem>
+          <MenuItem bg="#25272a" _hover={{ color: "#b8afaf" }}>
+            Basic Random Maze
+          </MenuItem>
+        </MenuList>
+      </Menu>
     </Flex>
   );
 };

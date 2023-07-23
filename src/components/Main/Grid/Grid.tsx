@@ -57,8 +57,8 @@ const Grid: React.FC<IGridProps> = ({
     steps: Array<[number, number]>,
     path: Array<[number, number]>
   ) => {
-    const animationSpeed = 0;
-    let delay = 0;
+    const animationSpeed = 1;
+    let delay = 1;
     grid.forEach((rows, rowIndex) => {
       rows.forEach((col, colIndex) => {
         if (grid[rowIndex][colIndex] > 1) grid[rowIndex][colIndex] = 0;
