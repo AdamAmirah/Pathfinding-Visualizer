@@ -57,10 +57,8 @@ export default function SidebarContent(props: Props) {
         flex="1"
         justify="center" // Add justify="center"
         align="center" // Add align="center"
+        mt={10}
       >
-        <Link onClick={() => onClickInfo()} style={{ textDecoration: "none" }}>
-          <NavItem icon={"info.svg"}>What is This ? </NavItem>
-        </Link>
         <Link
           onClick={() => onClickControl()}
           style={{ textDecoration: "none" }}

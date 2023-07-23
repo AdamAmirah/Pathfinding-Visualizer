@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box } from "@chakra-ui/react";
+import { Box, Flex, Heading, Text } from "@chakra-ui/react";
 import { bfs } from "../../../algorithms/bfs";
 import { motion, AnimateSharedLayout } from "framer-motion";
 import "./cell.css";
@@ -17,7 +17,7 @@ interface IGridProps {
   setFirstSearch: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const numRows = 35;
+const numRows = 33;
 const numCols = 43;
 
 type ArrayElement = number;
@@ -39,7 +39,6 @@ const Grid: React.FC<IGridProps> = ({
     .map(() => Array(numCols).fill(0));
   React.useEffect(() => {
     if (searching) {
-      console.log(startPoint);
       const result = bfs(grid, startPoint, endPoint);
       const path = result?.path;
       const steps = result?.steps;
@@ -181,39 +180,45 @@ const Grid: React.FC<IGridProps> = ({
   };
 
   return (
-    <Box
-      className="grid"
-      display="grid"
-      gridTemplateColumns={`repeat(${numCols}, 25px)`}
-      width="fit-content"
-      margin="0 auto"
-    >
-      {grid.map((rows, rowIndex) =>
-        rows.map((col, colIndex) => (
-          <Cell
-            componentType={
-              startPoint[1] === colIndex && startPoint[0] === rowIndex
-                ? "start"
-                : endPoint[1] === colIndex && endPoint[0] === rowIndex
-                ? "end"
-                : "normal"
-            }
-            onDragStart={dragStart}
-            onDragEnd={dragEnd}
-            isDraggingStart={isDraggingStart}
-            isDraggingEnd={isDraggingEnd}
-            key={`${rowIndex}-${colIndex}`}
-            colIndex={colIndex}
-            rowIndex={rowIndex}
-            grid={grid}
-            handleCellMouseDown={handleCellMouseDown}
-            handleCellMouseEnter={handleCellMouseEnter}
-            handleCellMouseUp={handleCellMouseUp}
-            handleCellClick={handleCellClick}
-          />
-        ))
-      )}
-    </Box>
+    <Flex direction="column" alignItems="center">
+      <Box
+        className="grid"
+        display="grid"
+        gridTemplateColumns={`repeat(${numCols}, 25px)`}
+        width="fit-content"
+        margin="0 auto"
+      >
+        {grid.map((rows, rowIndex) =>
+          rows.map((col, colIndex) => (
+            <Cell
+              componentType={
+                startPoint[1] === colIndex && startPoint[0] === rowIndex
+                  ? "start"
+                  : endPoint[1] === colIndex && endPoint[0] === rowIndex
+                  ? "end"
+                  : "normal"
+              }
+              onDragStart={dragStart}
+              onDragEnd={dragEnd}
+              isDraggingStart={isDraggingStart}
+              isDraggingEnd={isDraggingEnd}
+              key={`${rowIndex}-${colIndex}`}
+              colIndex={colIndex}
+              rowIndex={rowIndex}
+              grid={grid}
+              handleCellMouseDown={handleCellMouseDown}
+              handleCellMouseEnter={handleCellMouseEnter}
+              handleCellMouseUp={handleCellMouseUp}
+              handleCellClick={handleCellClick}
+            />
+          ))
+        )}
+      </Box>
+
+      <Text mt={4} fontSize="2.2vh" color="#F2F2F2" fontFamily="prodsans">
+        Pick an algorithm and visualize it!
+      </Text>
+    </Flex>
   );
 };
 

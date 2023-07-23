@@ -4,7 +4,7 @@ import { Flex } from "@chakra-ui/react";
 import Grid from "./Grid/Grid";
 import { useState } from "react";
 
-const numRows = 30;
+const numRows = 33;
 const numCols = 43;
 type ArrayElement = number;
 type TwoDimensionalArray = Array<Array<ArrayElement>>;

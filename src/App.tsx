@@ -28,13 +28,7 @@ export const App: React.FC = () => {
           md: 60,
         }}
       >
-        {isInfoOpen ? (
-          <Box borderWidth="4px" borderStyle="dashed" rounded="md" h="96">
-            what is this
-          </Box>
-        ) : (
-          <Main />
-        )}
+        <Main />
       </Box>
     </Box>
   );
