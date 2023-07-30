@@ -4,7 +4,7 @@ import { Flex } from "@chakra-ui/react";
 import Grid from "./Grid/Grid";
 import { useState } from "react";
 
-const numRows = 33;
+const numRows = 35;
 const numCols = 43;
 type ArrayElement = number;
 type TwoDimensionalArray = Array<Array<ArrayElement>>;
@@ -22,6 +22,8 @@ const Main: React.FunctionComponent<IMainProps> = (props) => {
 
   const [grid, setGrid] =
     React.useState<TwoDimensionalArray>(twoDimensionalArray);
+  const [currentSpeed, setCurrentSpeed] = useState("Moderate");
+  const [pickedAlgo, setPickedAlgo] = useState("");
 
   return (
     <Flex>
@@ -36,6 +38,10 @@ const Main: React.FunctionComponent<IMainProps> = (props) => {
         setEndPoint={setEndPoint}
         firstSearch={firstSearch}
         setFirstSearch={setFirstSearch}
+        setCurrentSpeed={setCurrentSpeed}
+        currentSpeed={currentSpeed}
+        pickedAlgo={pickedAlgo}
+        setPickedAlgo={setPickedAlgo}
       />
       <Grid
         grid={grid}
@@ -48,6 +54,10 @@ const Main: React.FunctionComponent<IMainProps> = (props) => {
         setEndPoint={setEndPoint}
         firstSearch={firstSearch}
         setFirstSearch={setFirstSearch}
+        setCurrentSpeed={setCurrentSpeed}
+        currentSpeed={currentSpeed}
+        pickedAlgo={pickedAlgo}
+        setPickedAlgo={setPickedAlgo}
       />
     </Flex>
   );

@@ -14,9 +14,14 @@ import {
 
 import { MdArrowDropDown } from "react-icons/md";
 import * as React from "react";
+import {
+  generateBasicMaze,
+  generateRecursiveMaze,
+} from "../../../util/mazesFunctions";
+import { useState } from "react";
 
-const numRows = 35;
-const numCols = 43;
+const numRows: number = 35;
+const numCols: number = 43;
 
 type ArrayElement = number;
 type TwoDimensionalArray = Array<Array<ArrayElement>>;
@@ -32,6 +37,10 @@ interface IControlPanelProps {
   setEndPoint: React.Dispatch<React.SetStateAction<[number, number]>>;
   firstSearch: boolean;
   setFirstSearch: React.Dispatch<React.SetStateAction<boolean>>;
+  setCurrentSpeed: React.Dispatch<React.SetStateAction<string>>;
+  currentSpeed: string;
+  pickedAlgo: string;
+  setPickedAlgo: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const ControlPanel: React.FunctionComponent<IControlPanelProps> = ({
@@ -44,10 +53,23 @@ const ControlPanel: React.FunctionComponent<IControlPanelProps> = ({
   setEndPoint,
   setStartPoint,
   setFirstSearch,
+  setCurrentSpeed,
+  currentSpeed,
+  pickedAlgo,
+  setPickedAlgo,
 }) => {
   const twoDimensionalArray: TwoDimensionalArray = Array(numRows)
     .fill(0)
     .map(() => Array(numCols).fill(0));
+
+  const handleMazeSelect = (type: number) => {
+    if (type === 1) {
+      setGrid(generateRecursiveMaze(numRows, numCols));
+    } else if (type === 2) {
+      setGrid(generateBasicMaze(numRows, numCols));
+    }
+  };
+
   return (
     <Flex
       direction="column"
@@ -176,20 +198,32 @@ const ControlPanel: React.FunctionComponent<IControlPanelProps> = ({
                 <Icon as={MdArrowDropDown} />
               </Heading>
               <Text color="#73767C" fontSize="sm" fontFamily="prodsans">
-                Change Visualizer Speed
+                {currentSpeed}
               </Text>
             </Flex>
           </Flex>
         </MenuButton>
 
         <MenuList bg="#25272a" border="0px" p={4} ml={2}>
-          <MenuItem bg="#25272a" _hover={{ color: "#b8afaf" }}>
+          <MenuItem
+            onClick={() => setCurrentSpeed("Fast")}
+            bg="#25272a"
+            _hover={{ color: "#b8afaf" }}
+          >
             Fast
           </MenuItem>
-          <MenuItem bg="#25272a" _hover={{ color: "#b8afaf" }}>
+          <MenuItem
+            onClick={() => setCurrentSpeed("Moderate")}
+            bg="#25272a"
+            _hover={{ color: "#b8afaf" }}
+          >
             Moderate
           </MenuItem>
-          <MenuItem bg="#25272a" _hover={{ color: "#b8afaf" }}>
+          <MenuItem
+            onClick={() => setCurrentSpeed("Slow")}
+            bg="#25272a"
+            _hover={{ color: "#b8afaf" }}
+          >
             Slow
           </MenuItem>
         </MenuList>
@@ -226,17 +260,27 @@ const ControlPanel: React.FunctionComponent<IControlPanelProps> = ({
                 <Icon as={MdArrowDropDown} />
               </Heading>
               <Text color="#73767C" fontSize="sm" fontFamily="prodsans">
-                Select an Algorithm to Visualize
+                {pickedAlgo === ""
+                  ? "Select an Algorithm to Visualize"
+                  : pickedAlgo}
               </Text>
             </Flex>
           </Flex>
         </MenuButton>
 
         <MenuList bg="#25272a" border="0px" p={4} ml={2}>
-          <MenuItem bg="#25272a" _hover={{ color: "#b8afaf" }}>
+          <MenuItem
+            onClick={() => setPickedAlgo("Breadth-First Search")}
+            bg="#25272a"
+            _hover={{ color: "#b8afaf" }}
+          >
             Breadth-First Search
           </MenuItem>
-          <MenuItem bg="#25272a" _hover={{ color: "#b8afaf" }}>
+          <MenuItem
+            onClick={() => setPickedAlgo("Depth-First Search")}
+            bg="#25272a"
+            _hover={{ color: "#b8afaf" }}
+          >
             Depth-First Search
           </MenuItem>
         </MenuList>
@@ -276,10 +320,18 @@ const ControlPanel: React.FunctionComponent<IControlPanelProps> = ({
         </MenuButton>
 
         <MenuList bg="#25272a" border="0px" p={4} ml={2}>
-          <MenuItem bg="#25272a" _hover={{ color: "#b8afaf" }}>
-            Basic Random Maze
+          <MenuItem
+            bg="#25272a"
+            _hover={{ color: "#b8afaf" }}
+            onClick={() => handleMazeSelect(1)}
+          >
+            Recursive Division
           </MenuItem>
-          <MenuItem bg="#25272a" _hover={{ color: "#b8afaf" }}>
+          <MenuItem
+            bg="#25272a"
+            _hover={{ color: "#b8afaf" }}
+            onClick={() => handleMazeSelect(2)}
+          >
             Basic Random Maze
           </MenuItem>
         </MenuList>

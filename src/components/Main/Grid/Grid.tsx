@@ -15,9 +15,13 @@ interface IGridProps {
   setEndPoint: React.Dispatch<React.SetStateAction<[number, number]>>;
   firstSearch: boolean;
   setFirstSearch: React.Dispatch<React.SetStateAction<boolean>>;
+  setCurrentSpeed: React.Dispatch<React.SetStateAction<string>>;
+  currentSpeed: string;
+  pickedAlgo: string;
+  setPickedAlgo: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const numRows = 33;
+const numRows = 35;
 const numCols = 43;
 
 type ArrayElement = number;
@@ -33,10 +37,15 @@ const Grid: React.FC<IGridProps> = ({
   setEndPoint,
   setStartPoint,
   firstSearch,
+  setCurrentSpeed,
+  currentSpeed,
+  pickedAlgo,
+  setPickedAlgo,
 }) => {
   const twoDimensionalArray: TwoDimensionalArray = Array(numRows)
     .fill(0)
     .map(() => Array(numCols).fill(0));
+
   React.useEffect(() => {
     if (searching) {
       const result = bfs(grid, startPoint, endPoint);
@@ -56,7 +65,12 @@ const Grid: React.FC<IGridProps> = ({
     steps: Array<[number, number]>,
     path: Array<[number, number]>
   ) => {
-    const animationSpeed = 1;
+    let animationSpeed: number;
+
+    if (currentSpeed === "Fast") animationSpeed = 1;
+    else if (currentSpeed === "Slow") animationSpeed = 100;
+    else animationSpeed = 50;
+
     let delay = 1;
     grid.forEach((rows, rowIndex) => {
       rows.forEach((col, colIndex) => {
@@ -215,8 +229,12 @@ const Grid: React.FC<IGridProps> = ({
         )}
       </Box>
 
-      <Text mt={4} fontSize="2.2vh" color="#F2F2F2" fontFamily="prodsans">
-        Pick an algorithm and visualize it!
+      <Text mt={2} fontSize="2.2vh" color="#F2F2F2" fontFamily="prodsans">
+        {pickedAlgo === "Breadth-First Search"
+          ? "Breath-first Search is unweighted and guarantees the shortest path!"
+          : pickedAlgo === "Depth-First Search"
+          ? "Depth-first Search is unweighted and does not guarantee the shortest path!"
+          : "Pick an algorithm and visualize it!"}
       </Text>
     </Flex>
   );
