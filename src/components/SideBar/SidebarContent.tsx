@@ -36,15 +36,7 @@ export default function SidebarContent(props: Props) {
     >
       <Flex px="4" py="5" align="center" justify="center" direction="column">
         <Image src="logo.png" boxSize={20} />
-        <Text
-          fontSize="2xl"
-          ml="2"
-          color="brand.500"
-          _dark={{
-            color: "white",
-          }}
-          fontWeight="semibold"
-        >
+        <Text fontSize="2xl" ml="2" color="brand.500" fontWeight="semibold">
           PathVis
         </Text>
       </Flex>
