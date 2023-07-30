@@ -65,7 +65,10 @@ export default function SidebarContent(props: Props) {
         >
           <NavItem icon={"settings.svg"}>Control Panel</NavItem>
         </Link>
-        <Link href="#" style={{ textDecoration: "none" }}>
+        <Link
+          href="https://github.com/AdamAmirah/Pathfinding-Visualizer"
+          style={{ textDecoration: "none" }}
+        >
           <NavItem icon={"github.svg"}>Github Repo</NavItem>
         </Link>
       </Flex>
