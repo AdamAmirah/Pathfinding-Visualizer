@@ -79,7 +79,7 @@ const ControlPanel: React.FunctionComponent<IControlPanelProps> = ({
       my={20}
       mx={20}
     >
-      <Heading color="brand.500" mb={4} fontSize="2.5vh" fontFamily="prodsans">
+      <Heading color="#fff" mb={4} fontSize="2.5vh" fontFamily="prodsans">
         Control Panel
       </Heading>
       <LinkBox
@@ -216,7 +216,7 @@ const ControlPanel: React.FunctionComponent<IControlPanelProps> = ({
             onClick={() => setCurrentSpeed("Moderate")}
             bg="#25272a"
             _hover={{ color: "#b8afaf" }}
-            color="brand.500"
+            color="#fff"
           >
             Moderate
           </MenuItem>
@@ -224,13 +224,13 @@ const ControlPanel: React.FunctionComponent<IControlPanelProps> = ({
             onClick={() => setCurrentSpeed("Slow")}
             bg="#25272a"
             _hover={{ color: "#b8afaf" }}
-            color="brand.500"
+            color="#fff"
           >
             Slow
           </MenuItem>
         </MenuList>
       </Menu>
-      <Heading color="brand.500" my={4} fontSize="2.5vh" fontFamily="prodsans">
+      <Heading color="#fff" my={4} fontSize="2.5vh" fontFamily="prodsans">
         Configure Pathfinding
       </Heading>
 
@@ -275,7 +275,7 @@ const ControlPanel: React.FunctionComponent<IControlPanelProps> = ({
             onClick={() => setPickedAlgo("Breadth-First Search")}
             bg="#25272a"
             _hover={{ color: "#b8afaf" }}
-            color="brand.500"
+            color="#fff"
           >
             Breadth-First Search
           </MenuItem>
@@ -283,7 +283,7 @@ const ControlPanel: React.FunctionComponent<IControlPanelProps> = ({
             onClick={() => setPickedAlgo("Depth-First Search")}
             bg="#25272a"
             _hover={{ color: "#b8afaf" }}
-            color="brand.500"
+            color="#fff"
           >
             Depth-First Search
           </MenuItem>
@@ -328,7 +328,7 @@ const ControlPanel: React.FunctionComponent<IControlPanelProps> = ({
             bg="#25272a"
             _hover={{ color: "#b8afaf" }}
             onClick={() => handleMazeSelect(1)}
-            color="brand.500"
+            color="#fff"
           >
             Recursive Division
           </MenuItem>
@@ -336,7 +336,7 @@ const ControlPanel: React.FunctionComponent<IControlPanelProps> = ({
             bg="#25272a"
             _hover={{ color: "#b8afaf" }}
             onClick={() => handleMazeSelect(2)}
-            color="brand.500"
+            color="#fff"
           >
             Basic Random Maze
           </MenuItem>
