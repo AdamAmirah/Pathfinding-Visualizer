@@ -30,6 +30,7 @@ export default function SidebarContent(props: Props) {
       borderRightWidth="1px"
       borderTopRightRadius="3xl"
       borderBottomRightRadius="3xl"
+      borderColor="brand.500"
       w={w ? w : "60"}
       display={display}
       borderRight={borderRight ? borderRight : ""}
