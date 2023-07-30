@@ -1,0 +1,2 @@
+.cell .draggable{align-items:center;background-position:50%;background-repeat:no-repeat;background-size:70%;border-radius:50%;color:#fff;cursor:grab;display:flex;height:25px;justify-content:center;width:25px}.cell .draggable,.cell .start{background-image:url(/Pathfinding-Visualizer/static/media/chevron-right.dc3681d7cc72e75b85c2.svg)}.cell .end{background-image:url(/Pathfinding-Visualizer/static/media/actualTarget.73dd1856f272438651f8.svg)}.cell .draggable:active{cursor:grabbing}
+/*# sourceMappingURL=main.80b476f1.css.map*/
