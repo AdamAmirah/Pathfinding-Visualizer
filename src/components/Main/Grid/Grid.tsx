@@ -47,8 +47,10 @@ const Grid: React.FC<IGridProps> = ({
     .map(() => Array(numCols).fill(0));
 
   React.useEffect(() => {
-    if (searching) {
-      const result = bfs(grid, startPoint, endPoint);
+    let result;
+    if (pickedAlgo === "Breadth-First Search")
+      result = bfs(grid, startPoint, endPoint);
+    if (searching && result) {
       const path = result?.path;
       const steps = result?.steps;
 

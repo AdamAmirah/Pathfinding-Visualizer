@@ -92,8 +92,10 @@ const ControlPanel: React.FunctionComponent<IControlPanelProps> = ({
         px={8}
         py={4}
         onClick={() => {
-          setSearching(true);
-          setFirstSearch(true);
+          if (pickedAlgo !== "") {
+            setSearching(true);
+            setFirstSearch(true);
+          }
         }}
         cursor="pointer"
       >
