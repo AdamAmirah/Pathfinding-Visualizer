@@ -99,7 +99,7 @@ const ControlPanel: React.FunctionComponent<IControlPanelProps> = ({
         }}
         cursor="pointer"
       >
-        <Image src="play.svg" boxSize={8} />
+        <Image src="Pathfinding-Visualizer/play.svg" boxSize={8} />
         <Flex ml={6} direction="column">
           <Heading size="md">
             <LinkOverlay color="#F2F2F2" fontSize="lg" fontFamily="prodsans">
@@ -130,7 +130,7 @@ const ControlPanel: React.FunctionComponent<IControlPanelProps> = ({
           setFirstSearch(false);
         }}
       >
-        <Image src="clear_all-24px.svg" boxSize={12} />
+        <Image src="Pathfinding-Visualizer/clear_all-24px.svg" boxSize={12} />
         <Flex ml={6} direction="column">
           <Heading size="md">
             <LinkOverlay color="#F2F2F2" fontSize="lg" fontFamily="prodsans">
@@ -159,7 +159,10 @@ const ControlPanel: React.FunctionComponent<IControlPanelProps> = ({
           setFirstSearch(false);
         }}
       >
-        <Image src="Squiggly-Road-Sign-Arrow.svg" boxSize={12} />
+        <Image
+          src="Pathfinding-Visualizer/Squiggly-Road-Sign-Arrow.svg"
+          boxSize={12}
+        />
         <Flex ml={6} direction="column">
           <Heading size="md">
             <LinkOverlay color="#F2F2F2" fontSize="lg" fontFamily="prodsans">
@@ -188,7 +191,7 @@ const ControlPanel: React.FunctionComponent<IControlPanelProps> = ({
           cursor="pointer"
         >
           <Flex alignItems="center">
-            <Image src="dashboard.svg" boxSize={10} />
+            <Image src="Pathfinding-Visualizer/dashboard.svg" boxSize={10} />
             <Flex ml={6} direction="column">
               <Heading
                 size="md"
@@ -252,7 +255,7 @@ const ControlPanel: React.FunctionComponent<IControlPanelProps> = ({
           cursor="pointer"
         >
           <Flex alignItems="center">
-            <Image src="coding.svg" boxSize={10} />
+            <Image src="Pathfinding-Visualizer/coding.svg" boxSize={10} />
             <Flex ml={6} direction="column">
               <Heading
                 size="md"
@@ -307,7 +310,7 @@ const ControlPanel: React.FunctionComponent<IControlPanelProps> = ({
           cursor="pointer"
         >
           <Flex alignItems="center">
-            <Image src="maze.svg" boxSize={10} />
+            <Image src="Pathfinding-Visualizer/maze.svg" boxSize={10} />
             <Flex ml={6} direction="column">
               <Heading
                 size="md"

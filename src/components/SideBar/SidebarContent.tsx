@@ -36,7 +36,7 @@ export default function SidebarContent(props: Props) {
       borderRight={borderRight ? borderRight : ""}
     >
       <Flex px="4" py="5" align="center" justify="center" direction="column">
-        <Image src="logo.png" boxSize={20} />
+        <Image src="Pathfinding-Visualizer/logo.png" boxSize={20} />
         <Text fontSize="2xl" ml="2" color="#fff" fontWeight="semibold">
           PathVis
         </Text>
@@ -56,13 +56,17 @@ export default function SidebarContent(props: Props) {
           onClick={() => onClickControl()}
           style={{ textDecoration: "none" }}
         >
-          <NavItem icon={"settings.svg"}>Control Panel</NavItem>
+          <NavItem icon={"Pathfinding-Visualizer/settings.svg"}>
+            Control Panel
+          </NavItem>
         </Link>
         <Link
           href="https://github.com/AdamAmirah/Pathfinding-Visualizer"
           style={{ textDecoration: "none" }}
         >
-          <NavItem icon={"github.svg"}>Github Repo</NavItem>
+          <NavItem icon={"Pathfinding-Visualizer/github.svg"}>
+            Github Repo
+          </NavItem>
         </Link>
       </Flex>
     </Box>
