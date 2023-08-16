@@ -16,7 +16,7 @@ import { MdArrowDropDown } from "react-icons/md";
 import * as React from "react";
 import {
   generateBasicMaze,
-  generateRecursiveMaze,
+  generateMazeWithSolvablePath,
 } from "../../../util/mazesFunctions";
 import { useState } from "react";
 
@@ -64,9 +64,11 @@ const ControlPanel: React.FunctionComponent<IControlPanelProps> = ({
 
   const handleMazeSelect = (type: number) => {
     if (type === 1) {
-      setGrid(generateRecursiveMaze(numRows, numCols));
+      setGrid(
+        generateMazeWithSolvablePath(numRows, numCols, startPoint, endPoint)
+      );
     } else if (type === 2) {
-      setGrid(generateBasicMaze(numRows, numCols));
+      setGrid(generateBasicMaze(numRows, numCols, startPoint, endPoint));
     }
   };
 

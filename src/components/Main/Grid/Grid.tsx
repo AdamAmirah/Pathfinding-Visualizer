@@ -71,7 +71,7 @@ const Grid: React.FC<IGridProps> = ({
 
     if (currentSpeed === "Fast") animationSpeed = 1;
     else if (currentSpeed === "Slow") animationSpeed = 100;
-    else animationSpeed = 50;
+    else animationSpeed = 20;
 
     let delay = 1;
     grid.forEach((rows, rowIndex) => {
@@ -145,8 +145,10 @@ const Grid: React.FC<IGridProps> = ({
 
     if (type === "start") {
       setStartPoint([cellIndex.y, cellIndex.x]);
+      grid[cellIndex.y][cellIndex.x] = 0;
     } else {
       setEndPoint([cellIndex.y, cellIndex.x]);
+      grid[cellIndex.y][cellIndex.x] = 0;
     }
 
     if (firstSearch) setSearching(true);
