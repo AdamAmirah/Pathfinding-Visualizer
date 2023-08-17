@@ -46,6 +46,8 @@ const Grid: React.FC<IGridProps> = ({
     .fill(0)
     .map(() => Array(numCols).fill(0));
 
+  const [drawing, setDrawing] = useState<boolean>(false);
+
   React.useEffect(() => {
     let result;
     if (pickedAlgo === "Breadth-First Search")
@@ -68,7 +70,7 @@ const Grid: React.FC<IGridProps> = ({
     path: Array<[number, number]>
   ) => {
     let animationSpeed: number;
-
+    setDrawing(true);
     if (currentSpeed === "Fast") animationSpeed = 1;
     else if (currentSpeed === "Slow") animationSpeed = 100;
     else animationSpeed = 20;
@@ -110,6 +112,7 @@ const Grid: React.FC<IGridProps> = ({
         }
         return newGrid;
       });
+      setDrawing(false);
     }, delay);
   };
 
@@ -228,6 +231,7 @@ const Grid: React.FC<IGridProps> = ({
               handleCellMouseEnter={handleCellMouseEnter}
               handleCellMouseUp={handleCellMouseUp}
               handleCellClick={handleCellClick}
+              searching={drawing}
             />
           ))
         )}

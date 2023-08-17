@@ -109,7 +109,9 @@ const ControlPanel: React.FunctionComponent<IControlPanelProps> = ({
             </LinkOverlay>
           </Heading>
           <Text color="#73767C" fontSize="sm" fontFamily="prodsans">
-            State of the visualization
+            {pickedAlgo === "Breadth-First Search"
+              ? "Ready to visualize Breadth-First!"
+              : "Select an Algorithm to Visualize"}
           </Text>
         </Flex>
       </LinkBox>

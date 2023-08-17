@@ -19,6 +19,7 @@ interface ICellProps {
   handleCellMouseEnter: (rowIndex: number, colIndex: number) => void;
   handleCellMouseUp: () => void;
   handleCellClick: (rowIndex: number, colIndex: number) => void;
+  searching: boolean;
 }
 
 const draggableVariant = {
@@ -42,6 +43,7 @@ const Cell: React.FC<ICellProps> = ({
   handleCellMouseEnter,
   handleCellMouseUp,
   handleCellClick,
+  searching,
 }) => {
   const [allowedToDraw, setAllowedToDraw] = useState<boolean>(true);
 
@@ -94,7 +96,7 @@ const Cell: React.FC<ICellProps> = ({
           onDragStart={() => onDragStart("start")}
           onDragEnd={(e, info) => onDragEnd("start", e, info)}
           layoutId={`start-${rowIndex}-${colIndex}`}
-          drag
+          drag={!searching}
           dragConstraints={dragConstraints}
         ></motion.div>
       )}
@@ -107,7 +109,7 @@ const Cell: React.FC<ICellProps> = ({
           onDragStart={() => onDragStart("end")}
           onDragEnd={(e, info) => onDragEnd("end", e, info)}
           layoutId={`end-${rowIndex}-${colIndex}`}
-          drag
+          drag={!searching}
           dragConstraints={dragConstraints}
         ></motion.div>
       )}

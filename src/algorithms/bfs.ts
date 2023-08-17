@@ -49,7 +49,10 @@ export const bfs = (
     }
   }
 
-  return null;
+  return {
+    path: [],
+    steps: steps.slice(), // Return the steps taken during the search
+  };
 };
 
 const isValidCell = (
