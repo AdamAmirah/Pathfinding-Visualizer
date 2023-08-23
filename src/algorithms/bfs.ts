@@ -29,6 +29,7 @@ export const bfs = (
       return {
         path: constructPath(parent, start, target),
         steps: steps.slice(), // Return the steps taken during the search
+        distances: {},
       };
     }
 
@@ -52,6 +53,7 @@ export const bfs = (
   return {
     path: [],
     steps: steps.slice(), // Return the steps taken during the search
+    distances: {},
   };
 };
 

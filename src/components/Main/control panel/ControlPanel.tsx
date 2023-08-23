@@ -111,6 +111,10 @@ const ControlPanel: React.FunctionComponent<IControlPanelProps> = ({
           <Text color="#73767C" fontSize="sm" fontFamily="prodsans">
             {pickedAlgo === "Breadth-First Search"
               ? "Ready to visualize Breadth-First!"
+              : pickedAlgo === "Dijkstra's Algorithm"
+              ? "Ready to visualize Dijkstra's Algorithm!"
+              : pickedAlgo === "Depth-First Search"
+              ? "Ready to visualize Depth-First Search!"
               : "Select an Algorithm to Visualize"}
           </Text>
         </Flex>
@@ -277,6 +281,14 @@ const ControlPanel: React.FunctionComponent<IControlPanelProps> = ({
         </MenuButton>
 
         <MenuList bg="#25272a" border="0px" p={4} ml={2}>
+          <MenuItem
+            onClick={() => setPickedAlgo("Dijkstra's Algorithm")}
+            bg="#25272a"
+            _hover={{ color: "#b8afaf" }}
+            color="#fff"
+          >
+            Dijkstra's Algorithm
+          </MenuItem>
           <MenuItem
             onClick={() => setPickedAlgo("Breadth-First Search")}
             bg="#25272a"

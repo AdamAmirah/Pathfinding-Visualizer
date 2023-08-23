@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Box, Flex, Heading, Text } from "@chakra-ui/react";
 import { bfs } from "../../../algorithms/bfs";
+import { dijkstra } from "../../../algorithms/dijkstra";
 import { motion, AnimateSharedLayout } from "framer-motion";
 import "./cell.css";
 import Cell from "./Cell";
@@ -47,14 +48,19 @@ const Grid: React.FC<IGridProps> = ({
     .map(() => Array(numCols).fill(0));
 
   const [drawing, setDrawing] = useState<boolean>(false);
+  const [distances, setDistances] = useState<{ [key: string]: number }>({});
 
   React.useEffect(() => {
     let result;
     if (pickedAlgo === "Breadth-First Search")
       result = bfs(grid, startPoint, endPoint);
+    else if (pickedAlgo === "Dijkstra's Algorithm")
+      result = dijkstra(grid, startPoint, endPoint);
+
     if (searching && result) {
       const path = result?.path;
       const steps = result?.steps;
+      setDistances(result?.distances);
 
       if (path) {
         animateSearch(steps!, path);
@@ -227,6 +233,7 @@ const Grid: React.FC<IGridProps> = ({
               colIndex={colIndex}
               rowIndex={rowIndex}
               grid={grid}
+              distances={distances}
               handleCellMouseDown={handleCellMouseDown}
               handleCellMouseEnter={handleCellMouseEnter}
               handleCellMouseUp={handleCellMouseUp}
@@ -242,6 +249,8 @@ const Grid: React.FC<IGridProps> = ({
           ? "Breath-first Search is unweighted and guarantees the shortest path!"
           : pickedAlgo === "Depth-First Search"
           ? "Depth-first Search is unweighted and does not guarantee the shortest path!"
+          : pickedAlgo === "Dijkstra's Algorithm"
+          ? "Dijkstra's Algorithm is weighted and guarantees the shortest path!"
           : "Pick an algorithm and visualize it!"}
       </Text>
     </Flex>

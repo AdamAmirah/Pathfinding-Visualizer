@@ -15,6 +15,7 @@ interface ICellProps {
   colIndex: number;
   rowIndex: number;
   grid: TwoDimensionalArray;
+  distances: { [key: string]: number };
   handleCellMouseDown: (rowIndex: number, colIndex: number) => void;
   handleCellMouseEnter: (rowIndex: number, colIndex: number) => void;
   handleCellMouseUp: () => void;
@@ -35,6 +36,7 @@ const Cell: React.FC<ICellProps> = ({
   colIndex,
   rowIndex,
   grid,
+  distances,
   onDragStart,
   onDragEnd,
   isDraggingStart,
@@ -83,7 +85,7 @@ const Cell: React.FC<ICellProps> = ({
           : grid[rowIndex][colIndex] === 1
           ? "#515256" // Color for obstacles
           : grid[rowIndex][colIndex] === 5
-          ? "#f9c80e" // Color for cells in the path
+          ? "#f9c80e" // Color for obstacles
           : undefined
       }
     >
@@ -144,8 +146,26 @@ const Cell: React.FC<ICellProps> = ({
           style={{
             width: "100%",
             height: "100%",
+            fontFamily: "sans-serif",
+            fontSize: "10px",
+            color: "#515256",
           }}
         />
+      )}
+
+      {grid[rowIndex][colIndex] === 5 && (
+        <motion.div
+          style={{
+            width: "100%",
+            height: "100%",
+            backgroundColor: "#f9c80e",
+            fontFamily: "sans-serif",
+            fontSize: "10px",
+            color: "#515256",
+          }}
+        >
+          {distances ? distances[`${rowIndex},${colIndex}`] : ""}
+        </motion.div>
       )}
     </Box>
   );
