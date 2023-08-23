@@ -5,6 +5,7 @@ import { dijkstra } from "../../../algorithms/dijkstra";
 import { motion, AnimateSharedLayout } from "framer-motion";
 import "./cell.css";
 import Cell from "./Cell";
+import { dfs } from "../../../algorithms/dfs";
 interface IGridProps {
   searching: boolean;
   setSearching: React.Dispatch<React.SetStateAction<boolean>>;
@@ -56,6 +57,8 @@ const Grid: React.FC<IGridProps> = ({
       result = bfs(grid, startPoint, endPoint);
     else if (pickedAlgo === "Dijkstra's Algorithm")
       result = dijkstra(grid, startPoint, endPoint);
+    else if (pickedAlgo === "Depth-First Search")
+      result = dfs(grid, startPoint, endPoint);
 
     if (searching && result) {
       const path = result?.path;

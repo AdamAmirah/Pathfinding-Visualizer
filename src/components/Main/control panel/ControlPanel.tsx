@@ -219,6 +219,7 @@ const ControlPanel: React.FunctionComponent<IControlPanelProps> = ({
             onClick={() => setCurrentSpeed("Fast")}
             bg="#25272a"
             _hover={{ color: "#b8afaf" }}
+            color="#fff"
           >
             Fast
           </MenuItem>
