@@ -18,7 +18,6 @@ import {
   generateBasicMaze,
   generateMazeWithSolvablePath,
 } from "../../../util/mazesFunctions";
-import { useState } from "react";
 
 const numRows: number = 35;
 const numCols: number = 43;

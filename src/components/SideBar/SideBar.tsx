@@ -1,4 +1,3 @@
-import { Box } from "@chakra-ui/react";
 import SidebarContent from "./SidebarContent";
 import MobileSideBar from "./MobileSideBar";
 interface Props {

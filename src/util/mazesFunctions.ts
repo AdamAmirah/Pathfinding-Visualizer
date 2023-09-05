@@ -81,8 +81,8 @@ export function generateBasicMaze(
     const row = Math.floor(Math.random() * rows);
     const col = Math.floor(Math.random() * cols);
     if (
-      (row == startPoint[0] && col == startPoint[1]) ||
-      (row == endPoint[0] && col == endPoint[1])
+      (row === startPoint[0] && col === startPoint[1]) ||
+      (row === endPoint[0] && col === endPoint[1])
     )
       continue;
 

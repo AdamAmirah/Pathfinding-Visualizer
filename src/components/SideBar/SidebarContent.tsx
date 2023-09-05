@@ -1,6 +1,4 @@
-import { Box, Collapse, Flex, Icon, Image, Link, Text } from "@chakra-ui/react";
-import React from "react";
-import { FaRss, FaClipboardCheck } from "react-icons/fa";
+import { Box, Flex, Image, Link, Text } from "@chakra-ui/react";
 import NavItem from "./NavItem";
 
 interface Props {

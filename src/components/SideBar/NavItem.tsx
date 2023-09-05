@@ -1,7 +1,4 @@
-import { Text, Box, Flex, Img, Link } from "@chakra-ui/react";
-import React from "react";
-
-type Props = {};
+import { Text, Box, Flex, Img } from "@chakra-ui/react";
 
 export default function NavItem(props: any) {
   const color = "gray.300";
